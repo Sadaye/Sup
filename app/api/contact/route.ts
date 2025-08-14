@@ -25,7 +25,20 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		// Envoi de l'email
+		// Si les variables d'environnement ne sont pas présentes, on neutralise l'envoi mais on ne casse pas la route
+		const hasEmailConfig = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
+		if (!hasEmailConfig) {
+			console.warn('[contact] EMAIL_USER/EMAIL_PASS absents. Envoi désactivé.');
+			return NextResponse.json(
+				{
+					success: true,
+					message: "Votre message a été reçu (mode démo sans envoi d'email). L'équipe vous recontactera bientôt.",
+				},
+				{ status: 200 }
+			);
+		}
+
+		// Envoi de l'email (config présente)
 		await sendContactEmail({ name, email, message });
 
 		return NextResponse.json(
