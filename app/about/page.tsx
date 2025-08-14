@@ -7,15 +7,10 @@ import {
   Award, BookOpen, Users, Building, GraduationCap, Briefcase, Globe, Target
 } from "lucide-react";
 import Image from "next/image";
-import Head from "next/head";
 
 export default function AboutPage() {
   return (
     <>
-      <Head>
-        <title>À propos de SupIGA - Institut Supérieur d'Informatique et de Gestion des Affaires</title>
-        <meta name="description" content="Découvrez l'histoire, la mission, la vision et les valeurs de SupIGA, établissement d'excellence en informatique, gestion et affaires depuis 2005." />
-      </Head>
       <main className="container mx-auto px-4 py-24 space-y-24">
         {/* Présentation */}
         <section aria-labelledby="titre-presentation">

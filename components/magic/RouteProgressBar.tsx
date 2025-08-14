@@ -39,4 +39,6 @@ export function RouteProgressBar() {
   );
 }
 
+export default RouteProgressBar;
+
 

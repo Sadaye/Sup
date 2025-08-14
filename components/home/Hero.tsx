@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import { GraduationCap, BookOpen, Users, Award, ChevronRight } from "lucide-react";
 import { ParticlesCanvas } from "@/components/magic/ParticlesCanvas";
 import HoloTitle from "@/components/magic/HoloTitle";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-20 overflow-hidden">
+    <section className="relative pt-36 md:pt-48 pb-20 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/10 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/3"></div>
@@ -95,12 +96,17 @@ export default function Hero() {
           className="relative"
         >
           <div className="glass-card aspect-video rounded-2xl overflow-hidden">
-  <img 
-    src="/UNIVERSITE SUP-IGA.jpg" 
-    alt="Bâtiment principal de SupIGA" 
-    className="w-full h-full object-cover" 
-  />
-</div>
+            <div className="relative w-full h-full">
+              <Image
+                src="/UNIVERSITE SUP-IGA.jpg"
+                alt="Bâtiment principal de SupIGA"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
 
           {/* Floating Stats Card */}
           <motion.div 

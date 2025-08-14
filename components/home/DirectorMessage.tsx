@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Quote } from "lucide-react";
+import Image from "next/image";
 
 export default function DirectorMessage() {
   return (
@@ -19,11 +20,14 @@ export default function DirectorMessage() {
             <Quote className="absolute top-6 left-6 h-24 w-24 text-primary/10 rotate-180" />
             <div className="grid md:grid-cols-3 gap-8 relative z-10">
               <div className="flex justify-center">
-                <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white/20">
-                  <img
+                <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white/20 relative">
+                  <Image
                     src="/Directeur.jpg"
                     alt="Dr. Hanif POTHO, Directeur de SupIGA"
-                    className="w-full h-full object-cover scale-110"
+                    fill
+                    className="object-cover scale-110"
+                    sizes="192px"
+                    priority
                   />
                 </div>
               </div>

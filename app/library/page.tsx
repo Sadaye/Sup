@@ -19,7 +19,6 @@ import {
   Code2,
   ChevronRight,
 } from "lucide-react";
-import Head from 'next/head';
 import Image from 'next/image';
 
 const categories = [
@@ -110,10 +109,6 @@ export default function LibraryPage() {
 
   return (
     <>
-      <Head>
-        <title>Bibliothèque numérique - SupIGA</title>
-        <meta name="description" content="Accédez à la bibliothèque numérique de SupIGA : supports de cours, publications de recherche et ressources pédagogiques pour réussir vos études." />
-      </Head>
       <main className="container mx-auto px-4 py-24 space-y-24">
         {/* Présentation éditoriale */}
         <section aria-labelledby="titre-bibliotheque">

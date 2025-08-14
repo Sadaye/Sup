@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Clock, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const programs = [
   {
@@ -69,10 +70,13 @@ export default function FeaturedPrograms() {
               <Tilt3D>
               <GlassCard className="h-full flex flex-col group">
                 <div className="relative h-48 rounded-lg overflow-hidden mb-4">
-                  <img
+                  <Image
                     src={program.image}
                     alt={program.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                    priority={index < 2}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <Badge className="absolute top-4 left-4 bg-primary">{program.level}</Badge>

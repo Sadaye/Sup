@@ -1,6 +1,5 @@
 "use client";
 
-import Head from "next/head";
 import Image from "next/image";
 
 const news = [
@@ -29,39 +28,30 @@ const news = [
 
 export default function NewsPage() {
 	return (
-		<>
-			<Head>
-				<title>Actualités - SupIGA</title>
-				<meta
-					name="description"
-					content="Retrouvez toutes les actualités de SupIGA : événements, conférences, innovations, vie du campus et réussites étudiantes."
-				/>
-			</Head>
-			<main className="container mx-auto px-4 py-24 space-y-24">
-				<section>
-					<h1 className="text-5xl font-extrabold text-center mb-12">
-						Actualités SupIGA
-					</h1>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-						{news.map((item) => (
-							<div key={item.title} className="relative border rounded-lg overflow-hidden">
-								<Image
-									src={item.image}
-									alt={item.title}
-									width={400}
-									height={300}
-									className="object-cover"
-								/>
-								<div className="p-4">
-									<h3 className="text-lg font-bold">{item.title}</h3>
-									<p className="text-sm text-gray-500">{item.date}</p>
-									<p className="text-sm mt-2">{item.excerpt}</p>
-								</div>
+		<main className="container mx-auto px-4 py-24 space-y-24">
+			<section>
+				<h1 className="text-5xl font-extrabold text-center mb-12">
+					Actualités SupIGA
+				</h1>
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+					{news.map((item) => (
+						<div key={item.title} className="relative border rounded-lg overflow-hidden">
+							<Image
+								src={item.image}
+								alt={item.title}
+								width={400}
+								height={300}
+								className="object-cover"
+							/>
+							<div className="p-4">
+								<h3 className="text-lg font-bold">{item.title}</h3>
+								<p className="text-sm text-gray-500">{item.date}</p>
+								<p className="text-sm mt-2">{item.excerpt}</p>
 							</div>
-						))}
-					</div>
-				</section>
-			</main>
-		</>
+						</div>
+					))}
+				</div>
+			</section>
+		</main>
 	);
 }

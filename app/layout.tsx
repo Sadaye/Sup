@@ -5,11 +5,11 @@ import { ThemeProvider } from '@/components/theme/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import Head from 'next/head';
 import { AnimatedBackground } from '@/components/magic/AnimatedBackground';
-import { RouteProgressBar } from '@/components/magic/RouteProgressBar';
 import { ClientEffects } from '@/components/magic/ClientEffects';
-import { Chatbot } from '@/components/magic/Chatbot';
+import dynamic from 'next/dynamic';
+const RouteProgressBar = dynamic(() => import('@/components/magic/RouteProgressBar'), { ssr: false });
+const Chatbot = dynamic(() => import('@/components/magic/Chatbot'), { ssr: false });
 
 const outfit = Outfit({ 
   subsets: ['latin'],
@@ -19,6 +19,8 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: 'SupIGA - Institut Supérieur d\'Informatique et de Gestion des Affaires',
   description: "SupIGA, institut d'enseignement supérieur en informatique, gestion et affaires. Contact: +223 75 13 47 15 / +223 76 44 38 20 – traoremohamedarsike@yahoo.fr – Banankabougou près de la Cour Suprême.",
+  icons: { icon: '/logo-supiga.png' },
+  manifest: '/manifest.webmanifest',
 };
 
 export default function RootLayout({
@@ -28,10 +30,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <Head>
-        <link rel="icon" href="/logo-supiga.png" type="image/png" />
-        <link rel="manifest" href="/manifest.webmanifest" />
-      </Head>
       <body className={`${outfit.className} min-h-screen flex flex-col`}>
         <RouteProgressBar />
         <AnimatedBackground />
