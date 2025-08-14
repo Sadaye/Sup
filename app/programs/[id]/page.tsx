@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, BookOpen, GraduationCap, MapPin, Phone, Mail } from "lucide-react";
 import { notFound } from "next/navigation";
 import { formations } from "@/data/formations";
+import Image from "next/image";
 
 type Module = { name: string; credits: number; semester: number };
 
@@ -130,7 +131,7 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
             <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
-              <img src={details.image} alt={formation.title} className="w-full h-full object-cover" />
+              <Image src={details.image} alt={formation.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" priority />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
             </div>
 

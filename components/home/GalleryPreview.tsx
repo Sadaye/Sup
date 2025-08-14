@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Image } from "lucide-react";
+import { ArrowRight, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 const galleryImages = [
   { id: 1, src: "/Bat Supiga.jpg", alt: "Campus SupIGA", category: "Campus" },
@@ -46,15 +47,18 @@ export default function GalleryPreview() {
             >
               <div className="relative group h-full">
                 <div className="relative h-full overflow-hidden rounded-lg">
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 25vw"
+                    priority={index < 2}
                   />
                   <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <Button variant="ghost" className="glass-button" asChild>
                       <Link href="/gallery">
-                        <Image className="h-5 w-5 mr-2" />
+                        <ImageIcon className="h-5 w-5 mr-2" />
                         Voir plus
                       </Link>
                     </Button>

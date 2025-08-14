@@ -5,6 +5,7 @@ import { GlassCard } from "@/components/ui/glass-card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
+import Image from "next/image";
 
 const news = [
   {
@@ -63,10 +64,13 @@ export default function NewsSection() {
             >
               <GlassCard className="h-full flex flex-col">
                 <div className="relative h-48 rounded-lg overflow-hidden mb-4">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                    priority={index < 2}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-3 left-3 glass px-3 py-1 rounded-full text-xs font-medium">

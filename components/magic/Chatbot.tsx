@@ -236,4 +236,6 @@ export function Chatbot() {
   );
 }
 
+export default Chatbot;
+
 

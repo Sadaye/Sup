@@ -10,11 +10,13 @@ function ensureEmailEnv() {
 	return { user, pass };
 }
 
-// Configuration du transporteur email
-const transporter = nodemailer.createTransport({
-	service: 'gmail',
-	auth: ensureEmailEnv(),
-});
+function getTransporter() {
+	const { user, pass } = ensureEmailEnv();
+	return nodemailer.createTransport({
+		service: 'gmail',
+		auth: { user, pass },
+	});
+}
 
 // Interface pour les données du message
 export interface ContactMessage {
@@ -77,7 +79,7 @@ Tél : +223 75 13 47 15 / +223 76 44 38 20
 	};
 
 	try {
-		// Vérifie la configuration si besoin
+		const transporter = getTransporter();
 		await transporter.verify();
 		const info = await transporter.sendMail(mailOptions);
 		console.log('Email envoyé avec succès:', info.messageId);
@@ -91,6 +93,7 @@ Tél : +223 75 13 47 15 / +223 76 44 38 20
 // Fonction pour tester la connexion email
 export async function testEmailConnection() {
 	try {
+		const transporter = getTransporter();
 		await transporter.verify();
 		console.log('Connexion email configurée avec succès');
 		return true;
