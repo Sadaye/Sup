@@ -1,117 +1,201 @@
 "use client";
 
-import Head from "next/head";
-import { motion } from "framer-motion";
-import { GlassCard } from "@/components/ui/glass-card";
-import { Badge } from "@/components/ui/badge";
-import { BookOpen, Briefcase, Code2, Leaf } from "lucide-react";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { BookOpen, Filter } from 'lucide-react';
+import Link from 'next/link';
+import { formations, categories } from '../../data/formations';
 
-const programs = [
-	{
-		category: "Sciences de gestion",
-		icon: Briefcase,
-		color: "primary",
-		fields: [
-			"Gestion des Entreprises & des Administrations",
-			"Gestion des Ressources Humaines",
-			"Gestion de Projet",
-			"Marketing & Communication",
-			"Entreprenariat & Leadership",
-			"Management de Qualité",
-			"Finance, Comptabilité / Fiscalité",
-			"Banque, Assurance & Micro Finance",
-			"Audit & Contrôle de Gestion",
-			"Communication d'Entreprise",
-			"Transport - Logistique - Douane",
-		],
-	},
-	{
-		category: "Informatique",
-		icon: Code2,
-		color: "secondary",
-		fields: [
-			"Programmation, Réseaux & Télécommunication",
-			"Programmation & Technologies Internet",
-			"Réseaux, Sécurité & Téléphonie IP",
-			"Intégration des Systèmes d'Information",
-			"Intégration de Site Web",
-		],
-	},
-	{
-		category: "Environnement & Développement durable",
-		icon: Leaf,
-		color: "success",
-		fields: [
-			"Génie de l'Environnement",
-			"Eau et Environnement",
-			"Hygiène, Qualité, Sécurité et Santé Environnementale",
-		],
-	},
-];
+const Formations: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
-export default function ProgramsPage() {
-	return (
-		<>
-			<Head>
-				<title>Formations - SupIGA</title>
-				<meta
-					name="description"
-					content="Découvrez l'ensemble des programmes de formation proposés par SupIGA : gestion, informatique, environnement et développement durable."
-				/>
-			</Head>
-			<main className="container mx-auto px-4 py-24 space-y-24">
-				<section aria-labelledby="titre-formations">
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-						className="text-center max-w-3xl mx-auto"
-					>
-						<Badge variant="outline" className="glass mb-4">
-							Nos formations
-						</Badge>
-						<h1
-							id="titre-formations"
-							className="text-4xl md:text-5xl font-bold mb-6"
-						>
-							Des parcours d'excellence pour tous les talents
-						</h1>
-						<p className="text-lg text-muted-foreground">
-							SupIGA propose un large éventail de programmes adaptés aux besoins du
-							marché et aux ambitions de chaque étudiant. Découvrez nos filières en
-							gestion, informatique et environnement.
-						</p>
-					</motion.div>
-				</section>
-				<section
-					className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-					aria-label="Liste des domaines de formation"
-				>
-					{programs.map((prog) => {
-						const Icon = prog.icon;
-						return (
-							<GlassCard
-								key={prog.category}
-								className="flex flex-col h-full p-8 items-center text-center"
-							>
-								<Icon
-									className={`h-10 w-10 mb-4 text-${prog.color}`}
-									aria-hidden="true"
-								/>
-								<h2 className="text-2xl font-bold mb-4">{prog.category}</h2>
-								<ul className="space-y-2 text-left mx-auto max-w-xs">
-									{prog.fields.map((field) => (
-										<li key={field} className="flex items-start gap-2">
-											<span className="mt-1 text-primary">•</span>
-											<span className="text-muted-foreground">{field}</span>
-										</li>
-									))}
-								</ul>
-							</GlassCard>
-						);
-					})}
-				</section>
-			</main>
-		</>
-	);
-}
+  const normalizeText = (value: string) =>
+    value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+  const filteredFormations = formations.filter((formation: { title: string; description: string; category: string; }) => {
+    const matchesCategory = selectedCategory === 'all' || normalizeText(formation.category) === normalizeText(selectedCategory);
+
+    const searchTermLower = normalizeText(searchTerm);
+    const titleLower = normalizeText(formation.title);
+    const descriptionLower = normalizeText(formation.description);
+    const categoryLower = normalizeText(formation.category);
+
+    const matchesSearch = titleLower.includes(searchTermLower) ||
+                         descriptionLower.includes(searchTermLower) ||
+                         categoryLower.includes(searchTermLower);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
+  return (
+    <section className="pt-32 md:pt-36 pb-20 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 dark:text-gray-100 mb-6">
+            NOS PROGRAMMES DE FORMATION
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Découvrez nos formations d'excellence dans quatre domaines clés pour votre réussite professionnelle
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+            <div className="relative flex-1 max-w-md">
+              <input
+                type="text"
+                placeholder="Rechercher une formation (ex: gestion, informatique, audit...)"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-3 pl-12 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              />
+              <BookOpen className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => { setSelectedCategory('all'); setSearchTerm(''); }}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  selectedCategory === 'all'
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20'
+                }`}
+              >
+                <Filter className="w-4 h-4 inline mr-2" />
+                Toutes
+              </button>
+              {categories.map((category: string) => (
+                <button
+                  key={category}
+                  onClick={() => { setSelectedCategory(category); setSearchTerm(''); }}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all text-sm ${
+                    selectedCategory === category
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-primary-900/20'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {filteredFormations.map((formation: { id: string; title: string; description: string; category: string; duration: string; level: string; }) => (
+            <motion.div
+              key={formation.id}
+              variants={item}
+              className="group bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:shadow-xl"
+              whileHover={{ y: -5 }}
+            >
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold title-wow title-underline">
+                    {formation.title}
+                  </h3>
+                  <span className="text-sm font-medium text-primary-500">
+                    { (formation.level === 'Licence' || formation.level === 'Master') ? 'Licence - Master' : formation.level }
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {formation.category}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 line-clamp-3 leading-relaxed">
+                  {formation.description}
+                </p>
+
+                <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <Link
+                    href={`/programs/${formation.id}`}
+                    className="w-full inline-block text-center px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/40 rounded-lg font-medium transition-colors cta-attract"
+                  >
+                    En savoir plus
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {filteredFormations.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12"
+          >
+            <BookOpen className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <p className="text-gray-500 dark:text-gray-400 text-lg mb-2">
+              Aucune formation trouvée pour "{searchTerm}"
+            </p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm">
+              Essayez avec des mots-clés comme : gestion, informatique, audit, marketing, programmation, environnement...
+            </p>
+          </motion.div>
+        )}
+
+        {searchTerm === '' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="mt-12 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 dark:border-gray-700/50"
+          >
+            <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              Recherches populaires :
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {['Gestion', 'Informatique', 'Audit', 'Marketing', 'Programmation', 'Finance', 'RH', 'Environnement', 'Sécurité', 'Web'].map((keyword) => (
+                <button
+                  key={keyword}
+                  onClick={() => { setSelectedCategory('all'); setSearchTerm(keyword); }}
+                  className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                >
+                  {keyword}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default Formations;

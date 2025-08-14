@@ -7,7 +7,7 @@ import GalleryPreview from '@/components/home/GalleryPreview';
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4 py-8 space-y-24">
+    <div className="w-full max-w-site mx-auto px-4">
       <Hero />
       <FeaturedPrograms />
       <StatsSection />

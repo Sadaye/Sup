@@ -77,7 +77,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
           <div className="hidden sm:flex items-center space-x-3">
             <Avatar>
-              <AvatarImage src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg" alt="Thomas Dupont" />
+              <AvatarImage src="/Directeur.jpg" alt="Thomas Dupont" />
               <AvatarFallback>TD</AvatarFallback>
             </Avatar>
             <div className="hidden md:block">
@@ -154,7 +154,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
               <div className="flex items-center space-x-3 mb-6 p-3 glass-card">
                 <Avatar>
-                  <AvatarImage src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg" alt="Thomas Dupont" />
+                  <AvatarImage src="/Directeur.jpg" alt="Thomas Dupont" />
                   <AvatarFallback>TD</AvatarFallback>
                 </Avatar>
                 <div>

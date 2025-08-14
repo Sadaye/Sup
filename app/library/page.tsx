@@ -38,7 +38,7 @@ const documents = [
     date: "2025-03-15",
     size: "2.4 MB",
     downloads: 156,
-    thumbnail: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg"
+    thumbnail: "/photo_2025-06-02_15-13-13.jpg"
   },
   {
     id: 2,
@@ -49,7 +49,7 @@ const documents = [
     date: "2025-03-10",
     size: "1.8 MB",
     downloads: 89,
-    thumbnail: "https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg"
+    thumbnail: "/photo_2025-06-02_15-13-14.jpg"
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const documents = [
     date: "2025-03-05",
     size: "3.2 MB",
     downloads: 234,
-    thumbnail: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg"
+    thumbnail: "/photo_2025-06-02_15-13-15.jpg"
   },
   {
     id: 4,
@@ -71,7 +71,7 @@ const documents = [
     date: "2025-03-01",
     size: "1.5 MB",
     downloads: 167,
-    thumbnail: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg"
+    thumbnail: "/photo_2025-06-02_15-13-16.jpg"
   },
   {
     id: 5,
@@ -82,7 +82,7 @@ const documents = [
     date: "2025-02-28",
     size: "2.8 MB",
     downloads: 198,
-    thumbnail: "https://images.pexels.com/photos/5380642/pexels-photo-5380642.jpeg"
+    thumbnail: "/photo_2025-06-02_15-13-17.jpg"
   },
   {
     id: 6,
@@ -93,7 +93,7 @@ const documents = [
     date: "2025-02-25",
     size: "2.1 MB",
     downloads: 145,
-    thumbnail: "https://images.pexels.com/photos/7567557/pexels-photo-7567557.jpeg"
+    thumbnail: "/photo_2025-06-02_15-13-18.jpg"
   },
 ];
 

@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Command as CommandIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/theme/mode-toggle';
 import Image from 'next/image';
+import AnimatedLogo from '@/components/magic/AnimatedLogo';
 
 const navItems = [
 	{ name: 'Accueil', href: '/' },
@@ -23,7 +24,17 @@ export default function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 	const pathname = usePathname();
-
+    const [isCmdOpen, setIsCmdOpen] = useState(false);
+    useEffect(() => {
+        const onKey = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                setIsCmdOpen((v) => !v);
+            }
+        };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, []);
 	useEffect(() => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 10);
@@ -52,7 +63,7 @@ export default function Header() {
 								priority
 							/>
 						</div>
-						<span className="text-xl md:text-2xl font-bold text-gradient">SupIGA</span>
+						<AnimatedLogo />
 					</Link>
 
 					{/* Desktop Navigation */}
@@ -73,11 +84,15 @@ export default function Header() {
 					</nav>
 
 					{/* Right Section */}
-					<div className="hidden md:flex items-center space-x-4">
+                    <div className="hidden md:flex items-center space-x-4">
 						<ModeToggle />
-						<Button asChild variant="outline" className="glass-button">
-							<Link href="/login">Connexion</Link>
-						</Button>
+                        <Button variant="outline" className="glass-button" onClick={() => setIsCmdOpen(true)}>
+                            <CommandIcon className="mr-2 h-4 w-4" />
+                            Rechercher
+                        </Button>
+                    <Button asChild variant="outline" className="glass-button">
+                        <Link href="/login">Connexion</Link>
+                    </Button>
 					</div>
 
 					{/* Mobile Menu Button */}
@@ -96,7 +111,7 @@ export default function Header() {
 			</div>
 
 			{/* Mobile Menu */}
-			{isMobileMenuOpen && (
+            {isMobileMenuOpen && (
 				<motion.div
 					initial={{ opacity: 0, y: -10 }}
 					animate={{ opacity: 1, y: 0 }}
@@ -124,6 +139,28 @@ export default function Header() {
 					</div>
 				</motion.div>
 			)}
+
+            {/* Command Dialog */}
+            {isCmdOpen && (
+                <div className="fixed inset-0 z-[60] flex items-start justify-center pt-24 bg-black/30" onClick={() => setIsCmdOpen(false)}>
+                    <div className="w-full max-w-xl mx-auto" onClick={(e) => e.stopPropagation()}>
+                        <div className="glass-card p-0 overflow-hidden">
+                            <div className="border-b px-3 py-2 flex items-center gap-2">
+                                <CommandIcon className="h-4 w-4 opacity-60" />
+                                <input className="w-full bg-transparent outline-none h-10" placeholder="Rechercher pages et actions..." autoFocus />
+                                <kbd className="text-xs opacity-60">Esc</kbd>
+                            </div>
+                            <div className="max-h-80 overflow-y-auto p-2">
+                                {navItems.map((item) => (
+                                    <Link key={item.name} href={item.href} onClick={() => setIsCmdOpen(false)} className="flex items-center px-3 py-2 rounded-md hover:bg-white/10">
+                                        {item.name}
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 		</header>
 	);
 }

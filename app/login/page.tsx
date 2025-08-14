@@ -9,7 +9,9 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GraduationCap, User, Lock, Mail, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { loginUser, registerUser, routeForRole, normalizeRole } from "@/lib/auth";
+import { launchConfetti } from "@/lib/confetti";
+import { Tilt3D } from "@/components/magic/Tilt3D";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,17 +24,12 @@ export default function LoginPage() {
     setError(null);
     const email = (e.currentTarget as any).email.value;
     const password = (e.currentTarget as any).password.value;
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const result = await loginUser(email, password);
     setIsLoading(false);
-    if (error) setError(error.message);
+    if (!result.ok) setError(result.error);
     else {
-      // Récupérer le rôle de l'utilisateur connecté
-      const { data: userData } = await supabase.auth.getUser();
-      const role = userData?.user?.user_metadata?.role;
-      if (role === "admin") window.location.href = "/admin";
-      else if (role === "prof") window.location.href = "/prof";
-      else if (role === "parent") window.location.href = "/parent";
-      else window.location.href = "/dashboard";
+      launchConfetti();
+      window.location.href = routeForRole(result.role);
     }
   };
 
@@ -46,25 +43,23 @@ export default function LoginPage() {
     // Dans handleRegister, si jamais quelqu'un tente d'envoyer 'admin', on force le rôle à 'etudiant' par défaut
     const roleRaw = (e.currentTarget as any)["register-role"].value;
     const role = ["prof", "parent", "etudiant", "admin"].includes(roleRaw) ? roleRaw : "etudiant";
-    const { error } = await supabase.auth.signUp({
+    const result = await registerUser({
       email,
       password,
-      options: { data: { name, role } }
+      role,
+      firstName: name,
     });
     setIsLoading(false);
-    if (error) setError(error.message);
+    if (!result.ok) setError(result.error);
     else {
-      // Redirection dynamique selon le rôle après inscription
-      if (role === "admin") window.location.href = "/admin";
-      else if (role === "prof") window.location.href = "/prof";
-      else if (role === "parent") window.location.href = "/parent";
-      else window.location.href = "/dashboard";
+      launchConfetti();
+      window.location.href = routeForRole(normalizeRole(role));
     }
   };
 
   return (
     <div className="min-h-screen pt-20 pb-10 flex items-center justify-center">
-      <div className="container px-4 max-w-md mx-auto">
+      <div className="w-full max-w-sm mx-auto px-6 md:px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -127,6 +122,7 @@ export default function LoginPage() {
                   
                   {error && <div className="text-red-500 text-sm text-center">{error}</div>}
                   
+                  <Tilt3D>
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? (
                       <div className="flex items-center">
@@ -140,6 +136,7 @@ export default function LoginPage() {
                       <>Se connecter</>
                     )}
                   </Button>
+                  </Tilt3D>
                   
                   <div className="relative flex items-center justify-center my-6">
                     <div className="absolute inset-0 flex items-center">
@@ -179,7 +176,7 @@ export default function LoginPage() {
                       <Input
                         type="text"
                         id="register-name"
-                        placeholder="John Doe"
+                        placeholder="Votre nom complet"
                         className="pl-10"
                         required
                       />
@@ -232,6 +229,7 @@ export default function LoginPage() {
 
                   {error && <div className="text-red-500 text-sm text-center">{error}</div>}
                   
+                  <Tilt3D>
                   <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading ? (
                       <div className="flex items-center">
@@ -245,6 +243,7 @@ export default function LoginPage() {
                       <>Créer un compte</>
                     )}
                   </Button>
+                  </Tilt3D>
                 </form>
               </TabsContent>
             </Tabs>

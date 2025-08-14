@@ -13,7 +13,7 @@ const news = [
     date: "15 avril 2025",
     category: "Évènement",
     excerpt: "SupIGA accueille des experts internationaux pour une conférence sur les dernières avancées en intelligence artificielle.",
-    image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
+    image: "/photo_2025-06-02_15-13-21 (2).jpg"
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const news = [
     date: "28 mars 2025",
     category: "Partenariat",
     excerpt: "SupIGA annonce un partenariat stratégique avec Microsoft pour renforcer son programme de formation en cloud computing.",
-    image: "https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg"
+    image: "/photo_2025-06-02_15-13-22.jpg"
   },
   {
     id: 3,
@@ -29,15 +29,15 @@ const news = [
     date: "10 mars 2025",
     category: "Admissions",
     excerpt: "Les inscriptions pour l'année académique 2025-2026 sont désormais ouvertes pour tous les programmes.",
-    image: "https://images.pexels.com/photos/3182750/pexels-photo-3182750.jpeg"
+    image: "/photo_2025-06-02_15-13-24 (2).jpg"
   }
 ];
 
 export default function NewsSection() {
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+    <section className="py-20">
+      <div className="w-full max-w-site mx-auto px-4">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Actualités</h2>
             <p className="text-lg text-muted-foreground max-w-2xl">

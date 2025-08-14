@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { BarChart, LineChart, PieChart } from "lucide-react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getCurrentUser } from "@/lib/auth";
 
 // Placeholder data
 const courseProgress = [
@@ -38,18 +38,8 @@ export default function DashboardPage() {
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }: { data: any }) => {
-      const role = data?.user?.user_metadata?.role;
-      if (role && role !== "etudiant") router.replace("/login");
-    });
-    const { data: listener } = supabase.auth.onAuthStateChange((_event: string, session: any) => {
-      if (!session) router.replace("/login");
-    });
-    return () => {
-      if (listener && listener.subscription && typeof listener.subscription.unsubscribe === 'function') {
-        listener.subscription.unsubscribe();
-      }
-    };
+    const user = getCurrentUser();
+    if (!user || user.role !== 'student') router.replace('/login');
   }, [router]);
 
   return (

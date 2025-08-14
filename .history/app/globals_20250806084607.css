@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --futuristic-yellow: 48 98% 55%;
+  --futuristic-yellow-glow: 0 0% 100%;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 240 50% 99%;
+    --foreground: 240 10% 3.9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    
+    --primary: 242 83% 54%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 262 83% 58%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --accent: 281 75% 65%;
+    --accent-foreground: 0 0% 98%;
+    
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142 76% 36%;
+    
+    --chart-1: 240, 100%, 70%;
+    --chart-2: 262, 83%, 58%;
+    --chart-3: 281, 75%, 65%;
+    --chart-4: 325, 80%, 60%;
+    --chart-5: 210, 90%, 65%;
+    
+    --radius: 0.5rem;
+  }
+  
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 242 83% 54%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 262 83% 58%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --accent: 281 75% 65%;
+    --accent-foreground: 0 0% 98%;
+    
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142 76% 36%;
+    
+    --chart-1: 240, 60%, 50%;
+    --chart-2: 262, 70%, 50%;
+    --chart-3: 281, 70%, 55%;
+    --chart-4: 325, 70%, 50%;
+    --chart-5: 210, 70%, 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(circle at 100% 0%, hsla(var(--primary), 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 0% 100%, hsla(var(--secondary), 0.15) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/20 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-white/10 shadow-lg;
+  }
+  
+  .glass-card {
+    @apply glass rounded-xl;
+  }
+
+  .glass-button {
+    @apply glass rounded-lg transition-all hover:bg-white/30 dark:hover:bg-white/10 active:scale-95;
+  }
+
+  .menu-futuristic {
+    @apply transition-all duration-300;
+  }
+  .menu-futuristic:hover, .menu-futuristic:focus {
+    background-color: hsl(var(--futuristic-yellow));
+    color: #222;
+    box-shadow: 0 0 16px 2px hsl(var(--futuristic-yellow)), 0 0 32px 4px hsl(var(--futuristic-yellow-glow));
+    border-color: hsl(var(--futuristic-yellow));
+    transform: scale(1.05) translateY(-2px);
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+  }
+}

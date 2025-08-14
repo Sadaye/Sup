@@ -84,15 +84,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-foreground/70">123 Avenue de l&apos;Éducation, 75000 Paris, France</span>
+                <span className="text-sm text-foreground/70">Banankabougou près de la Cour Suprême</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={18} className="text-primary flex-shrink-0" />
-                <span className="text-sm text-foreground/70">+33 1 23 45 67 89</span>
+                <span className="text-sm text-foreground/70">+223 75 13 47 15 / +223 76 44 38 20</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-primary flex-shrink-0" />
-                <span className="text-sm text-foreground/70">contact@supiga.edu</span>
+                <span className="text-sm text-foreground/70">traoremohamedarsike@yahoo.fr</span>
               </li>
             </ul>
           </div>

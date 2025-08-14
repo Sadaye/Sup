@@ -7,49 +7,19 @@ import Link from "next/link";
 import { ArrowRight, Image } from "lucide-react";
 
 const galleryImages = [
-  {
-    id: 1,
-    src: "https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg",
-    alt: "Campus SupIGA",
-    category: "Campus"
-  },
-  {
-    id: 2,
-    src: "https://images.pexels.com/photos/1181233/pexels-photo-1181233.jpeg",
-    alt: "Laboratoire informatique",
-    category: "Installations"
-  },
-  {
-    id: 3,
-    src: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg",
-    alt: "Travail d'équipe étudiant",
-    category: "Étudiants"
-  },
-  {
-    id: 4,
-    src: "https://images.pexels.com/photos/5428008/pexels-photo-5428008.jpeg",
-    alt: "Cérémonie de remise des diplômes",
-    category: "Événements"
-  },
-  {
-    id: 5,
-    src: "https://images.pexels.com/photos/8199562/pexels-photo-8199562.jpeg",
-    alt: "Conférence internationale",
-    category: "Conférences"
-  },
-  {
-    id: 6,
-    src: "https://images.pexels.com/photos/2982449/pexels-photo-2982449.jpeg",
-    alt: "Vie étudiante",
-    category: "Vie étudiante"
-  }
+  { id: 1, src: "/Bat Supiga.jpg", alt: "Campus SupIGA", category: "Campus" },
+  { id: 2, src: "/photo_2025-06-02_15-13-21.jpg", alt: "Laboratoire informatique", category: "Installations" },
+  { id: 3, src: "/photo_2025-06-02_15-13-23.jpg", alt: "Travail d'équipe étudiant", category: "Étudiants" },
+  { id: 4, src: "/photo_2025-06-02_15-13-24.jpg", alt: "Cérémonie de remise des diplômes", category: "Événements" },
+  { id: 5, src: "/photo_2025-06-02_15-13-25.jpg", alt: "Conférence internationale", category: "Conférences" },
+  { id: 6, src: "/photo_2025-06-02_15-13-26.jpg", alt: "Vie étudiante", category: "Vie étudiante" }
 ];
 
 export default function GalleryPreview() {
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
+    <section className="py-20">
+      <div className="w-full max-w-site mx-auto px-4">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Galerie</h2>
             <p className="text-lg text-muted-foreground max-w-2xl">

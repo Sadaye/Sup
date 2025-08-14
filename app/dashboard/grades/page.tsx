@@ -18,7 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DownloadIcon } from "lucide-react";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getCurrentUser } from "@/lib/auth";
 
 // Placeholder data
 const gradesData = [
@@ -57,20 +57,8 @@ export default function GradesPage() {
   const router = useRouter();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }: { data: any }) => {
-      const session = data?.session;
-      if (!session) {
-        router.replace("/login");
-      }
-    }).catch(() => router.replace("/login"));
-    const { data: listener } = supabase.auth.onAuthStateChange((_event: unknown, session: unknown) => {
-      if (!session) router.replace("/login");
-    });
-    return () => {
-      if (listener && listener.subscription && typeof listener.subscription.unsubscribe === 'function') {
-        listener.subscription.unsubscribe();
-      }
-    };
+    const user = getCurrentUser();
+    if (!user) router.replace('/login');
   }, [router]);
 
   const getStatusColor = (status: string) => {

@@ -4,17 +4,20 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { GraduationCap, BookOpen, Users, Award, ChevronRight } from "lucide-react";
+import { ParticlesCanvas } from "@/components/magic/ParticlesCanvas";
+import HoloTitle from "@/components/magic/HoloTitle";
 
 export default function Hero() {
   return (
-    <section className="relative pt-28 pb-16 overflow-hidden">
+    <section className="relative pt-32 pb-20 overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-primary/10 rounded-full blur-3xl opacity-20 -translate-y-1/2 translate-x-1/3"></div>
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-secondary/10 rounded-full blur-3xl opacity-20 translate-y-1/2 -translate-x-1/3"></div>
       </div>
       
-      <div className="container relative z-10 mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+      <ParticlesCanvas />
+      <div className="w-full max-w-site mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
         {/* Hero Content */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -34,15 +37,11 @@ export default function Hero() {
             <span className="text-primary font-medium">Excellence académique depuis 2012</span>
           </motion.div>
 
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
-          >
-            <span>Formez-vous aux </span>
-            <span className="text-gradient">métiers d&apos;avenir</span>
-          </motion.h1>
+          <HoloTitle
+            leadingText="Formez-vous aux"
+            emphasisText=" métiers d'avenir"
+            className="mt-1"
+          />
 
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

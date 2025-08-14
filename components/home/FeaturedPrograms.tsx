@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/ui/glass-card";
+import { ScrollReveal } from "@/components/magic/ScrollReveal";
+import { Tilt3D } from "@/components/magic/Tilt3D";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Clock, Users } from "lucide-react";
@@ -13,38 +15,41 @@ const programs = [
     title: "Informatique",
     level: "Licence & Master",
     description: "Formation complète en développement logiciel, IA, cybersécurité et gestion de projet informatique.",
-    image: "https://images.pexels.com/photos/574069/pexels-photo-574069.jpeg",
+    image: "/photo_2025-06-02_15-13-12.jpg",
     students: 250,
     duration: "3-5 ans",
     courses: 24,
+    href: "/programs/12", // Programmation, réseaux & télécommunication (catégorie Informatique)
   },
   {
     id: 2,
     title: "Gestion d'entreprise",
     level: "Licence & Master",
     description: "Expertise en management, stratégie, finance, ressources humaines et marketing.",
-    image: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg",
+    image: "/photo_2025-06-02_15-13-18.jpg",
     students: 180,
     duration: "3-5 ans",
     courses: 22,
+    href: "/programs/1", // Gestion des entreprises & des administrations
   },
   {
     id: 3,
     title: "Data Science",
     level: "Master",
     description: "Maîtrise de l'analyse de données, du machine learning et des statistiques avancées.",
-    image: "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg",
+    image: "/photo_2025-06-02_15-13-20.jpg",
     students: 120,
     duration: "2 ans",
     courses: 18,
+    href: "/programs", // Redirige vers la liste complète en attendant une fiche dédiée
   },
 ];
 
 export default function FeaturedPrograms() {
   return (
-    <section className="py-16">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+    <section className="py-20">
+      <div className="w-full max-w-site mx-auto px-4">
+        <div className="text-center mb-16">
           <Badge variant="outline" className="glass mb-4">Formations</Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos programmes d&apos;excellence</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -52,15 +57,17 @@ export default function FeaturedPrograms() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programs.map((program, index) => (
+            <ScrollReveal key={program.id} delay={index * 80}>
             <motion.div
               key={program.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <GlassCard className="h-full flex flex-col">
+              <Tilt3D>
+              <GlassCard className="h-full flex flex-col group">
                 <div className="relative h-48 rounded-lg overflow-hidden mb-4">
                   <img
                     src={program.image}
@@ -71,7 +78,7 @@ export default function FeaturedPrograms() {
                   <Badge className="absolute top-4 left-4 bg-primary">{program.level}</Badge>
                 </div>
                 
-                <h3 className="text-xl font-semibold mb-2">{program.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 title-wow title-underline">{program.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4 flex-grow">{program.description}</p>
                 
                 <div className="grid grid-cols-3 gap-2 mb-4">
@@ -93,17 +100,19 @@ export default function FeaturedPrograms() {
                 </div>
                 
                 <Button variant="ghost" className="w-full justify-between group" asChild>
-                  <Link href={`/programs/${program.id}`}>
+                  <Link href={program.href}>
                     Découvrir ce programme
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
               </GlassCard>
+              </Tilt3D>
             </motion.div>
+            </ScrollReveal>
           ))}
         </div>
         
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <Button variant="outline" className="glass-button" asChild>
             <Link href="/programs">
               Voir tous les programmes

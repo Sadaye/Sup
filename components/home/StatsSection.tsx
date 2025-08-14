@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ScrollReveal } from "@/components/magic/ScrollReveal";
 import { GlassCard } from "@/components/ui/glass-card";
 import { GraduationCap, Award, BookOpen, Building } from "lucide-react";
 
@@ -41,12 +42,12 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-16 relative">
+    <section className="py-20 relative">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-primary/5 rounded-full blur-3xl"></div>
       </div>
       
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="w-full max-w-site mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">SupIGA en chiffres</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -56,8 +57,8 @@ export default function StatsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
+            <ScrollReveal key={stat.id} delay={index * 80}>
             <motion.div
-              key={stat.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -72,6 +73,7 @@ export default function StatsSection() {
                 <p className="text-sm text-muted-foreground">{stat.description}</p>
               </GlassCard>
             </motion.div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
